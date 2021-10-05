@@ -1,7 +1,7 @@
 from niryo_one_tcp_client import *
 
 niryo_one_client = NiryoOneClient()
-niryo_one_client.connect("10.10.10.10") # =< Replace by robot ip address
+niryo_one_client.connect("169.254.200.200") # WLAN: 10.10.10.10; LAN: 169.254.200.200
 
 
 initial_pose = None
