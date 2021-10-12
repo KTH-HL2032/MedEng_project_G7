@@ -20,12 +20,17 @@ if status is True:
 else:
     print("Error: " + data)
 
+status, data = niryo_one_client.shift_pose(RobotAxis.X, 0.5)
+
+
 
 while True:
   up = win32api.GetKeyState(0x57)
   down = win32api.GetKeyState(0x53)
   left = win32api.GetKeyState(0x41)
   right = win32api.GetKeyState(0x44)
+  stopp = win32api.GetKeyState(0x20)
+  nach_l = win32api.GetKeyState(0x11)
 
   if up<0:
     print("up")
@@ -43,7 +48,7 @@ while True:
 
   if left<0:
     print("left")
-    status, data = niryo_one_client.shift_pose(RobotAxis.Y, 0.025)
+    status, data = niryo_one_client.shift_pose(RobotAxis.Y, 0.1)
     if status is False:
         print("Error: " + data)
 
@@ -54,6 +59,16 @@ while True:
     if status is False:
         print("Error: " + data)
 
+  if stopp<0:
+    print("stop")
+    status, data = niryo_one_client.set_learning_mode(True)
+    if status is False:
+        print("Error: " + data)
 
+"""
+  if right<0:
+    start_time=time.time()
+  elif right>=0:
+    end_time=time.time()-start_time
 
-
+"""
