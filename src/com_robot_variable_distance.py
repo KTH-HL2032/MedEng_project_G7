@@ -11,6 +11,8 @@ niryo_one_client.connect("10.10.10.10")  # WLAN: 10.10.10.10; LAN: 169.254.200.2
 initial_pose = None
 
 
+
+
 def on_key_release(key):  #Everything happens when the button is released so it knows how long the button was pressed
     time_taken = round(time.time() - t, 3)  #calculates the time difference
     print(key, time_taken)
@@ -22,6 +24,11 @@ def on_key_release(key):  #Everything happens when the button is released so it 
     else:
         exit()
 
+    if key.char == 'c':
+        status, data = niryo_one_client.calibrate(CalibrateMode.AUTO)
+        if status is False:
+            print("Error: " + data)
+
     if key.char == 'l':  #Gets current position as array [x,y,z,roll,pitch,yaw] // char is necessary to work
         status, data = niryo_one_client.get_pose()
         if status is True:
@@ -31,6 +38,7 @@ def on_key_release(key):  #Everything happens when the button is released so it 
 
     if key.char == 'w':  #moves to robot in the positive x-axis
         print("up")
+
         shift = time_taken*0.1  #sets shift amount
         end_pos_x = shift+pos_list[0]  #computes end position on x-axis
         end_pos_y = pos_list[1] #end position on y-axis (on left/right command they would be swapped)
@@ -40,25 +48,59 @@ def on_key_release(key):  #Everything happens when the button is released so it 
 
         print(shift)
         status, data = niryo_one_client.shift_pose(RobotAxis.X, shift)
-
         if status is False:
             print("Error: " + data)
 
     if key.char == 's':  #moves the robot in the negative x-axis
         print("down")
-        status, data = niryo_one_client.shift_pose(RobotAxis.X, -time_taken*0.1)
+
+        shift = -time_taken * 0.1
+        end_pos_x = shift + pos_list[0]
+        end_pos_y = pos_list[1]
+        if math.sqrt(end_pos_x ** 2 + end_pos_y ** 2) <= 0.16:
+            end_pos_x = math.sqrt(0.16 ** 2 - end_pos_y ** 2)
+            shift = end_pos_x - pos_list[0]
+
+        print(shift)
+        status, data = niryo_one_client.shift_pose(RobotAxis.X, shift)
         if status is False:
             print("Error: " + data)
 
     if key.char == 'a':  #moves the robot in the positive y-axis
         print("left")
-        status, data = niryo_one_client.shift_pose(RobotAxis.Y, time_taken*0.1)
+
+        shift = time_taken * 0.1
+        end_pos_x = pos_list[0]
+        end_pos_y = shift + pos_list[1]
+        if math.sqrt(end_pos_x ** 2 + end_pos_y ** 2) >= 0.3:
+            end_pos_y = math.sqrt(0.3 ** 2 - end_pos_x ** 2)
+            shift = end_pos_y - pos_list[1]
+
+        if math.sqrt(end_pos_x ** 2 + end_pos_y ** 2) <= 0.16:
+            end_pos_y = math.sqrt(0.16 ** 2 - end_pos_x ** 2)
+            shift = -end_pos_y - pos_list[1]
+
+        print(shift)
+        status, data = niryo_one_client.shift_pose(RobotAxis.Y, shift)
         if status is False:
             print("Error: " + data)
 
     if key.char == 'd':  #moves the robot in the negative y-axis
         print("right")
-        status, data = niryo_one_client.shift_pose(RobotAxis.Y, -time_taken*0.1)
+
+        shift = -time_taken * 0.1
+        end_pos_x = pos_list[0]
+        end_pos_y = shift + pos_list[1]
+        if math.sqrt(end_pos_x ** 2 + end_pos_y ** 2) >= 0.3:
+            end_pos_y = math.sqrt(0.3 ** 2 - end_pos_x ** 2)
+            shift = -end_pos_y - pos_list[1]
+
+        if math.sqrt(end_pos_x ** 2 + end_pos_y ** 2) <= 0.16:
+            end_pos_y = math.sqrt(0.16 ** 2 - end_pos_x ** 2)
+            shift = end_pos_y - pos_list[1]
+
+        print(shift)
+        status, data = niryo_one_client.shift_pose(RobotAxis.Y, shift)
         if status is False:
             print("Error: " + data)
 
