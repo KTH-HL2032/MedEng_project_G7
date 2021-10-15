@@ -4,3 +4,4 @@ pyserial==3.5
 six==1.16.0
 pynput==1.7.3
 pylsl==1.15.0
+matplotlib==2.8.2
