@@ -11,8 +11,6 @@ niryo_one_client.connect("10.10.10.10")  # WLAN: 10.10.10.10; LAN: 169.254.200.2
 initial_pose = None
 
 
-
-
 def on_key_release(key):  #Everything happens when the button is released so it knows how long the button was pressed
     time_taken = round(time.time() - t, 3)  #calculates the time difference
     print(key, time_taken)
