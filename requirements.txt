@@ -3,5 +3,6 @@ pymodbus==2.5.2
 pyserial==3.5
 six==1.16.0
 pynput==1.7.3
+pysiology==0.0.9.4
 pylsl==1.15.0
 matplotlib==3.4.3
