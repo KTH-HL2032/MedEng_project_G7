@@ -14,5 +14,7 @@ Installation process for windows:
 2) create a venv if desired (recommended)
 3) I haven't wrote a batch skript for windwos yet but it will follow. You can always install the packages manually if you know how it works.
 
+## Niryo One
+
 [1]:	https://youtu.be/Kg1Yvry_Ydk
 [2]:	https://youtu.be/APOPm01BVrk
