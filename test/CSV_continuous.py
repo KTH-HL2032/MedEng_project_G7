@@ -5,20 +5,20 @@ from pylsl import StreamInlet, resolve_stream
 from time import sleep
 import numpy
 
-duration = int(input("How long? "))
-
-# first resolve an EEG stream on the lab network
-print("looking for an EMG stream...")
-streams = resolve_stream('type', 'EMG')
-
-# create a new inlet to read from the stream
-inlet = StreamInlet(streams[0])
-
-sleep(0)
-
-print("gathering data to plot...")
-
 def LSL():
+
+    duration = int(input("How long? "))
+
+    # first resolve an EEG stream on the lab network
+    print("looking for an EMG stream...")
+    streams = resolve_stream('type', 'EMG')
+
+    # create a new inlet to read from the stream
+    inlet = StreamInlet(streams[0])
+
+    sleep(0)
+
+    print("gathering data to plot...")
 
 
     start = time.time()
@@ -71,3 +71,5 @@ def CSV():
 
 
         time.sleep(0.005)
+
+CSV()
