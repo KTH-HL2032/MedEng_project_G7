@@ -32,18 +32,10 @@ def testLSLPulseData():
         if timestamp:
             for sample in chunk:
                 print(sample)
-                raw_pulse_signal.append(sample[0])
-    print(raw_pulse_signal)
+                raw_pulse_signal.append(sample[2])
     print( "Avg Sampling Rate == {}".format(len(raw_pulse_signal) / duration) )
+    print(raw_pulse_signal)
 
-
-    listdata = []
-    print(listdata)
-
-    for i in range(0, len(raw_pulse_signal)):
-        listdata.append(raw_pulse_signal[i][2])
-
-    print(listdata)
 
     def rms(interval, halfwindow):
         """ performs the moving-window smoothing of a signal using RMS """
@@ -59,11 +51,13 @@ def testLSLPulseData():
 
         return rms_signal
 
-    print(rms(listdata, 2))
+    print(rms(raw_pulse_signal, 2))
+
+    threshold = 150
 
     # plt.plot(listdata)
-    plt.plot(rms(listdata, 100))
-    plt.show()
+    plt.plot(rms(raw_pulse_signal, 80))
+    #plt.plot(threshold)
 
     plt.plot(raw_pulse_signal)
     plt.ylabel('raw analog signal')
