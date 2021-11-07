@@ -26,6 +26,7 @@ print("gathering data to plot...")
 
 def testLSLPulseData():
     start = time.time()
+
     raw_pulse_signal = []
     while time.time() <= start + duration:
         chunk, timestamp = inlet.pull_chunk()
@@ -33,6 +34,7 @@ def testLSLPulseData():
             for sample in chunk:
                 print(sample)
                 raw_pulse_signal.append(sample[2])
+
     print( "Avg Sampling Rate == {}".format(len(raw_pulse_signal) / duration) )
     print(raw_pulse_signal)
 
