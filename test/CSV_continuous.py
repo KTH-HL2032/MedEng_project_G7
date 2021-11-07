@@ -24,7 +24,7 @@ def LSL():
     start = time.time()
 
     raw_pulse_signal = []
-    while time.time() <= start + duration:
+    while True:
         chunk, timestamp = inlet.pull_chunk()
         if timestamp:
             for sample in chunk:
