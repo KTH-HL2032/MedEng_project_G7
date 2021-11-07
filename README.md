@@ -1,5 +1,5 @@
 # MedEng_project_G7
-This project is a reulst of the project course in medical engineering at KTH
+This project is a result of the project course in medical engineering at KTH
 
 You need to install all the packages from the requirements.txt as well as the ones in the dependencies folder. This can be done manually or with the bash or batch skrips install_packages_... A venv is recommended. If this is a new concept to you watch the video by corey shaefer for [unix][1] or [windows][2] respectively.
 
