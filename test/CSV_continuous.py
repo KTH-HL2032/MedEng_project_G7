@@ -5,8 +5,8 @@ from pylsl import StreamInlet, resolve_stream
 from time import sleep
 import numpy
 
-def LSL():
 
+def CSV():
     duration = int(input("How long? "))
 
     # first resolve an EEG stream on the lab network
@@ -20,28 +20,10 @@ def LSL():
 
     print("gathering data to plot...")
 
-
     start = time.time()
 
     raw_pulse_signal = []
-    while True:
-        chunk, timestamp = inlet.pull_chunk()
-        if timestamp:
-            for sample in chunk:
-                #print(sample)
-                raw_pulse_signal.append(sample[2])
 
-    #print("Avg Sampling Rate == {}".format(len(raw_pulse_signal) / duration))
-    #print(raw_pulse_signal)
-
-    return sample[2]
-
-
-
-
-
-
-def CSV():
     x_value = 0
     total_1 = 0
 
@@ -55,6 +37,15 @@ def CSV():
 
     while True:
 
+        chunk, timestamp = inlet.pull_chunk()
+        if timestamp:
+            for sample in chunk:
+                # print(sample)
+                raw_pulse_signal.append(sample[2])
+
+        print("Avg Sampling Rate == {}".format(len(raw_pulse_signal) / duration))
+        # print(raw_pulse_signal)
+
         with open('data.csv', 'a') as csv_file:
             csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
 
@@ -67,7 +58,7 @@ def CSV():
             print(x_value, total_1)
 
             x_value += 1
-            total_1 = LSL()
+            total_1 = sample[2]
 
 
         time.sleep(0.005)
