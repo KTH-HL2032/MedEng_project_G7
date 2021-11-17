@@ -18,14 +18,14 @@ def animate(i):
     plt.cla()
 
     plt.plot(x, y1, label='Channel 1')
-    #plt.ylim(-2000, 2000)
-    #plt.xlim(-4000+len(x), 2000 + len(x))
+    plt.ylim(-2000, 2000)
+    plt.xlim(-4000+len(x), 2000 + len(x))
 
     plt.legend(loc='upper left')
     plt.tight_layout()
 
 
-ani = FuncAnimation(plt.gcf(), tabnannyimate, interval = 0.01)
+ani = FuncAnimation(plt.gcf(), animate, interval = 0.01)
 
 plt.tight_layout()
 plt.show()
