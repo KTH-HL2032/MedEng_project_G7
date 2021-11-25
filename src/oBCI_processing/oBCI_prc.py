@@ -9,6 +9,7 @@ from time import sleep
 
 import circbuffer
 import rootmeansquare
+import exp_mov_avg
 
 
 # ============================================================================
@@ -37,9 +38,13 @@ inlet_numChannels = int(inletInfo.channel_count())
 if verbose:
     print("Reported sample rate: %i , number of channels: %i" %(inlet_sampleRate, inlet_numChannels))
 
+# ============================================================================
+#INIT
+ema = exp_mov_avg.ExponentialMovingAverage()
 rms = rootmeansquare.RootMeanSquare()
-cbuffer = circbuffer.CircBuffer(size_max=512)
+cbuffer = circbuffer.CircBuffer(size_max=1024)
 sendEverySmpl = math.ceil(inlet_sampleRate / outlet_sendRate)
+# ============================================================================
 
 samplesInBuffer = 0
 samplesSent = 0
@@ -76,16 +81,18 @@ while obs.run:
         samplesSent += 1
         sys.stdout.write('\rsamples sent: %i' % samplesSent)  # \r requires stdout to work
         samplesInBuffer = 0
-        testval = rms.get(data_raw[:,2],64)
+        data_rms = rms.get(data_raw[:,2],64)
+        data_ema = ema.get(data_rms,64.)
+        print(data_ema)
 
         if verbose:
             if samplesSent < 2:
                 h1, = plt.plot(data_raw[:,2])
-                h2, = plt.plot(testval)
+                h2, = plt.plot(data_rms)
 
             else:
                 h1.set_ydata(data_raw[:,2])
-                h2.set_ydata(testval)
+                h2.set_ydata(data_rms)
             plt.pause(0.0000001)
 
 
