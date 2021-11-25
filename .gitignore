@@ -305,8 +305,8 @@ $RECYCLE.BIN/
 # individual
 /.idea
 /dependencies/gumpy-master
-/test/CSV/data.csv
-/test/data.csv
+
+**/data.csv
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,macos,windows
 
