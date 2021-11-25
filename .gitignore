@@ -305,6 +305,7 @@ $RECYCLE.BIN/
 # individual
 /.idea
 /dependencies/gumpy-master
+/dependencies/EMG-Signal-Processing-Library-master
 
 **/data.csv
 
