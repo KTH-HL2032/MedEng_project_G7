@@ -32,6 +32,7 @@ T1 = 0
 T2 = 0
 flag_entry = 1
 flag_exit = 1
+counter = 0
 
 # ============================================================================
 # PROCESS
@@ -100,10 +101,12 @@ while obs.run:
             flag_exit = 1
 
         elif muscle_activated == False and flag_exit ==1:
-            T2 = time.time()
-            time_diff = T2-T1
+            if counter > 0:
+                T2 = time.time()
+                time_diff = T2-T1
             flag_entry = 1
             flag_exit = 0
+            counter += 1
 
         if verbose:
             if samplesSent < 2:
