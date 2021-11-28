@@ -16,17 +16,16 @@ import exp_mov_avg
 # PARAMETERS
 # ============================================================================
 # 0. General
-verbose = True
+verbose = False
 # 1. Output
 output_width    = 32
 output_height   = 32
 output_stacks   = 3  # channels
 outlet_sendRate = 2 # [Hz]
 
-buffer_size=1024
+buffer_size = 128
 
 muscle_activated = False
-time_difference  = 0
 
 # ============================================================================
 # PROCESS
@@ -84,12 +83,10 @@ while obs.run:
         data_raw = np.array(cbuffer.get())[:,0:3]
 
         samplesSent += 1
-        sys.stdout.write('\rsamples sent: %i' % samplesSent)  # \r requires stdout to work
         samplesInBuffer = 0
         data_rms = rms.get(data_raw[:,2],128)
-        data_ema, muscle_activated, time_difference = ema.get(data_rms,0.9,0.9)
-        sys.stdout.write('\rmuscle activated: %s' % muscle_activated)
-        sys.stdout.write('\rtime difference: %s' % time_difference)
+        data_ema, muscle_activated = ema.get(data_rms,0.9,0.9)
+        sys.stdout.write('\rsamples sent: %i muscle activated: %s' % (samplesSent, muscle_activated))
 
         if verbose:
             if samplesSent < 2:

@@ -23,14 +23,15 @@ class ExponentialMovingAverage:
                 self.w[i] = alpha*self.w[i-1] + (1-alpha)*interval[i]
             else:
                 self.w[i] = beta*self.w[i-1] + (1-beta)*interval[i]
-            if self.w[i] > 12:
-                self.activated = True
-                t1 = time.time()
-                time_dif = 0
-            else:
-                self.activated = False
-                time_dif = time.time()-t1
+
+        avg_w = sum(self.w)/len(self.w)
+        if avg_w > 13:
+            self.activated = True
+
+        else:
+            self.activated = False
 
 
-        return self.w, self.activated, time_dif
+
+        return self.w, self.activated
 
