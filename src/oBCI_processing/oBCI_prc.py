@@ -26,6 +26,7 @@ outlet_sendRate = 2 # [Hz]
 buffer_size=1024
 
 muscle_activated = False
+time_difference  = 0
 
 # ============================================================================
 # PROCESS
@@ -86,8 +87,9 @@ while obs.run:
         sys.stdout.write('\rsamples sent: %i' % samplesSent)  # \r requires stdout to work
         samplesInBuffer = 0
         data_rms = rms.get(data_raw[:,2],128)
-        data_ema, muscle_activated = ema.get(data_rms,0.9,0.9)
+        data_ema, muscle_activated, time_difference = ema.get(data_rms,0.9,0.9)
         sys.stdout.write('\rmuscle activated: %s' % muscle_activated)
+        sys.stdout.write('\rtime difference: %s' % time_difference)
 
         if verbose:
             if samplesSent < 2:
