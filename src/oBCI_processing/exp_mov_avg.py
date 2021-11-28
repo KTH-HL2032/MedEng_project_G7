@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 
 class ExponentialMovingAverage:
@@ -24,9 +25,12 @@ class ExponentialMovingAverage:
                 self.w[i] = beta*self.w[i-1] + (1-beta)*interval[i]
             if self.w[i] > 12:
                 self.activated = True
+                t1 = time.time()
+                time_dif = 0
             else:
                 self.activated = False
+                time_dif = time.time()-t1
 
-        return self.w, self.activated
 
+        return self.w, self.activated, time_dif
 
