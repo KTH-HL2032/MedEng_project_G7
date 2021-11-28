@@ -1,5 +1,6 @@
 import math
 import sys
+import time
 
 from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -26,6 +27,11 @@ outlet_sendRate = 2 # [Hz]
 buffer_size = 128
 
 muscle_activated = False
+time_diff = 0
+T1 = 0
+T2 = 0
+flag_entry = 1
+flag_exit = 1
 
 # ============================================================================
 # PROCESS
@@ -86,7 +92,18 @@ while obs.run:
         samplesInBuffer = 0
         data_rms = rms.get(data_raw[:,2],128)
         data_ema, muscle_activated = ema.get(data_rms,0.9,0.9)
-        sys.stdout.write('\rsamples sent: %i muscle activated: %s' % (samplesSent, muscle_activated))
+        sys.stdout.write('\rsamples sent: %i muscle activated: %s Time difference: %f' % (samplesSent, muscle_activated, time_diff))
+
+        if muscle_activated == True and flag_entry == 1:
+            T1 = time.time()
+            flag_entry = 0
+            flag_exit = 1
+
+        elif muscle_activated == False and flag_exit ==1:
+            T2 = time.time()
+            time_diff = T2-T1
+            flag_entry = 1
+            flag_exit = 0
 
         if verbose:
             if samplesSent < 2:
