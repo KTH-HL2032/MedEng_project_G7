@@ -3,7 +3,10 @@ import numpy as np
 
 class ExponentialMovingAverage:
 
-    def get(self, interval, window):
+    def __init__(self, size_max):
+        self.w = [0]*size_max
+
+    def get_old(self, interval, window):
         weights = np.exp(np.e(-1., 0., window))
         weights /= weights.sum()
 
@@ -11,6 +14,15 @@ class ExponentialMovingAverage:
         a[:window] = a[window]
         return a
 
+    def get(self, interval, alpha, beta):
+
+        for i in range(1,len(interval)):
+            if interval[i] > interval[i-1]:
+                self.w[i] = alpha*self.w[i-1] + (1-alpha)*interval[i]
+            else:
+                self.w[i] = beta*self.w[i-1] + (1-beta)*interval[i]
+
+        return self.w
 
 
 
