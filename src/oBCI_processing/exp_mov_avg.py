@@ -5,6 +5,7 @@ class ExponentialMovingAverage:
 
     def __init__(self, size_max):
         self.w = [0]*size_max
+        self.activated = False
 
     def get_old(self, interval, window):
         weights = np.exp(np.e(-1., 0., window))
@@ -21,8 +22,11 @@ class ExponentialMovingAverage:
                 self.w[i] = alpha*self.w[i-1] + (1-alpha)*interval[i]
             else:
                 self.w[i] = beta*self.w[i-1] + (1-beta)*interval[i]
+            if self.w[i] > 12:
+                self.activated = True
+            else:
+                self.activated = False
 
-        return self.w
-
+        return self.w, self.activated
 
 

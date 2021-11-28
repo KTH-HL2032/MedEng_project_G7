@@ -23,6 +23,10 @@ output_height   = 32
 output_stacks   = 3  # channels
 outlet_sendRate = 2 # [Hz]
 
+buffer_size=1024
+
+muscle_activated = False
+
 # ============================================================================
 # PROCESS
 # ============================================================================
@@ -40,9 +44,9 @@ if verbose:
 
 # ============================================================================
 #INIT
-ema = exp_mov_avg.ExponentialMovingAverage()
+ema = exp_mov_avg.ExponentialMovingAverage(buffer_size)
 rms = rootmeansquare.RootMeanSquare()
-cbuffer = circbuffer.CircBuffer(size_max=1024)
+cbuffer = circbuffer.CircBuffer(buffer_size)
 sendEverySmpl = math.ceil(inlet_sampleRate / outlet_sendRate)
 # ============================================================================
 
@@ -81,18 +85,20 @@ while obs.run:
         samplesSent += 1
         sys.stdout.write('\rsamples sent: %i' % samplesSent)  # \r requires stdout to work
         samplesInBuffer = 0
-        data_rms = rms.get(data_raw[:,2],64)
-        data_ema = ema.get(data_rms,64.)
-        print(data_ema)
+        data_rms = rms.get(data_raw[:,2],128)
+        data_ema, muscle_activated = ema.get(data_rms,0.9,0.9)
+        sys.stdout.write('\rmuscle activated: %s' % muscle_activated)
 
         if verbose:
             if samplesSent < 2:
                 h1, = plt.plot(data_raw[:,2])
                 h2, = plt.plot(data_rms)
+                h3, = plt.plot(data_ema)
 
             else:
                 h1.set_ydata(data_raw[:,2])
                 h2.set_ydata(data_rms)
+                h3.set_ydata(data_ema)
             plt.pause(0.0000001)
 
 
