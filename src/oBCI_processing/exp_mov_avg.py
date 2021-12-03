@@ -1,5 +1,4 @@
 import numpy as np
-import time
 
 
 class ExponentialMovingAverage:
@@ -18,7 +17,7 @@ class ExponentialMovingAverage:
 
     def get(self, interval, alpha, beta):
 
-        for i in range(1,len(interval)):
+        for i in range(1, len(interval)):
             if interval[i] > interval[i-1]:
                 self.w[i] = alpha*self.w[i-1] + (1-alpha)*interval[i]
             else:
@@ -31,7 +30,4 @@ class ExponentialMovingAverage:
         else:
             self.activated = False
 
-
-
         return self.w, self.activated
-

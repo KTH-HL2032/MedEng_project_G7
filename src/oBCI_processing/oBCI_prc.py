@@ -6,12 +6,10 @@ from matplotlib import pyplot as plt
 import matplotlib.gridspec as gridspec
 import numpy as np
 from pylsl import StreamInlet, resolve_stream
-from time import sleep
 
 import circbuffer
 import rootmeansquare
 import exp_mov_avg
-
 
 # ============================================================================
 # PARAMETERS
@@ -75,11 +73,11 @@ if verbose:
     fig.canvas.mpl_connect('close_event', obs.handle_close)
     print("Close the figure to stop the application.")
 else:
-    class closer:
+    class Closer:
         def __init__(self):
             self.run = True
 
-    obs = closer()
+    obs = Closer()
 
 while obs.run:
     cbuffer.append(inlet.pull_sample()[0])
