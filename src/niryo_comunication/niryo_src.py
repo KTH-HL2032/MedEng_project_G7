@@ -28,8 +28,9 @@ initial_pose = None
 
 class Niryo:
 
-    def __innit__(self):
+    def __init__(self, b, c, d, e, f, g):
         self.time_taken = Processing.processing()
+        a, b, c, d, e, f, g, h = next(p)
 
     def rom_calc(self, pos_list, key):
 
@@ -174,4 +175,3 @@ while True:
 
     with keyboard.Listener(on_release=Niryo.on_key_release) as release_listener:
         release_listener.join()
-
