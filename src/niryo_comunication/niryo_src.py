@@ -29,41 +29,35 @@ initial_pose = None
 class Niryo:
 
     def __init__(self, b, c, d, e, f, g):
-        self.time_taken = Processing.processing()
-        a, b, c, d, e, f, g, h = next(p)
+        self.time_diff_cha1 = b
+        self.time_diff_cha2 = c
+        self.time_diff_cha3 = d
+        self.activation_cha1 = e
+        self.activation_cha2 = f
+        self.activation_cha3 = g
+        self.time_taken = 0
+        self.channel = 0
 
-    def rom_calc(self, pos_list, key):
+    def rom_calc(self, pos_list):
 
         in_rad = 0.16
         o_rad = 0.3
 
-        if key == 'w':
-            pre1 = 1
-            pre_i = -1
-            pre_o = 1
-            changing_index = 0
-            fix_index = 1
-
-        elif key == 's':
-            pre1 = -1
-            pre_i = 1
-            pre_o = -1
-            changing_index = 0
-            fix_index = 1
-
-        elif key == 'a':
+        if self.activation_cha1:
             pre1 = 1
             pre_i = -1
             pre_o = 1
             changing_index = 1
             fix_index = 0
+            self.time_taken = self.time_diff_cha1
 
-        elif key == 'd':
+        elif self.activation_cha2:
             pre1 = -1
             pre_i = 1
             pre_o = -1
             changing_index = 1
             fix_index = 0
+            self.time_taken = self.time_diff_cha2
 
         else:
             print("No direction key")
@@ -83,12 +77,7 @@ class Niryo:
             # the arm in below outer radius
         return shift
 
-
-    def on_key_release(self, key):  # Everything happens when the button is released so it knows how long the button was pressed
-
-        niryo = Niryo()
-
-        print(key, self.time_taken)
+    def on_key_release(self,key):  # Everything happens when the button is released so it knows how long the button was pressed
 
         status_pos, data_pos = niryo_one_client.get_pose()
         pos_list = PoseObject.to_list(data_pos)
@@ -110,50 +99,6 @@ class Niryo:
             else:
                 print("Error: " + data)
 
-        if key.char == 'w':  # moves to robot in the positive x-axis
-            print("up")
-
-            print(niryo.rom_calc(pos_list, self.time_taken, 'w'))
-            status, data = niryo_one_client.shift_pose(RobotAxis.X, niryo.rom_calc(pos_list, self.time_taken, 'w'))
-            if status is False:
-                print("Error: " + data)
-
-        if key.char == 's':  # moves the robot in the negative x-axis
-            print("down")
-
-            print(niryo.rom_calc(pos_list, self.time_taken, 's'))
-            status, data = niryo_one_client.shift_pose(RobotAxis.X, niryo.rom_calc(pos_list, self.time_taken, 's'))
-            if status is False:
-                print("Error: " + data)
-
-        if key.char == 'a':  # moves the robot in the positive y-axis
-            print("left")
-
-            print(niryo.rom_calc(pos_list, self.time_taken, 'a'))
-            status, data = niryo_one_client.shift_pose(RobotAxis.Y, niryo.rom_calc(pos_list, self.time_taken, 'a'))
-            if status is False:
-                print("Error: " + data)
-
-        if key.char == 'd':  # moves the robot in the negative y-axis
-            print("right")
-
-            print(niryo.rom_calc(pos_list, self.time_taken, 'd'))
-            status, data = niryo_one_client.shift_pose(RobotAxis.Y, niryo.rom_calc(pos_list, self.time_taken, 'd'))
-            if status is False:
-                print("Error: " + data)
-
-        if key.char == 'n':  # moves the robot in the positive z-axis (UP)
-            print("up")
-            status, data = niryo_one_client.shift_pose(RobotAxis.Z, self.time_taken*0.1)
-            if status is False:
-                print("Error: " + data)
-
-        if key.char == 'm':  # moves the robot in the negative z-axis (DOWN)
-            print("down")
-            status, data = niryo_one_client.shift_pose(RobotAxis.Z, -self.time_taken*0.1)
-            if status is False:
-                print("Error: " + data)
-
         if key.char == 'p':  # the robot goes into learning mode (otherwise the robot stays on and is loud)
 
             print("stop")
@@ -163,15 +108,30 @@ class Niryo:
                 print("Error: " + data)
         return False  # only one input at a time is allowed
 
-    def on_key_press(key):  # This function just detects that the button was pressed but nothing else.
-        print(key.char, " is pressed")
-        return False  # Can be modified if necessary
+    def niryo_processing(self):
+
+        status_pos, data_pos = niryo_one_client.get_pose()
+        pos_list = PoseObject.to_list(data_pos)
+
+        if self.time_diff_cha1:  # moves the robot in the positive y-axis
+            print("left")
+
+            print(Niryo.rom_calc(pos_list))
+            status, data = niryo_one_client.shift_pose(RobotAxis.Y, Niryo.rom_calc(pos_list))
+            if status is False:
+                print("Error: " + data)
+
+        if self.time_diff_cha2:  # moves the robot in the negative y-axis
+            print("right")
+
+            print(Niryo.rom_calc(pos_list))
+            status, data = niryo_one_client.shift_pose(RobotAxis.Y, Niryo.rom_calc(pos_list))
+            if status is False:
+                print("Error: " + data)
+
 
 
 while True:
-
-    with keyboard.Listener(on_press=Niryo.on_key_press) as press_listener:  # The listener just records if a button
-        press_listener.join()                                         # is pressing down or released
 
     with keyboard.Listener(on_release=Niryo.on_key_release) as release_listener:
         release_listener.join()
