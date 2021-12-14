@@ -1,4 +1,3 @@
-# taken from https://www.safaribooksonline.com/library/view/python-cookbook/0596001673/ch05s19.html
 class CircBuffer:
 
     def __init__(self,size_max):

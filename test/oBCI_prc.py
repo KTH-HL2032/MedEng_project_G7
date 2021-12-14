@@ -7,9 +7,9 @@ import matplotlib.gridspec as gridspec
 import numpy as np
 from pylsl import StreamInlet, resolve_stream
 
-import circbuffer
-import rootmeansquare
-import exp_mov_avg
+import src.oBCI_prc.circbuffer as circbuffer
+import src.oBCI_prc.rootmeansquare as rootmeansquare
+import src.oBCI_prc.expmovavg as expmovavg
 
 # ============================================================================
 # PARAMETERS
@@ -49,7 +49,7 @@ if verbose:
 
 # ============================================================================
 #INIT
-ema = exp_mov_avg.ExponentialMovingAverage(buffer_size)
+ema = expmovavg.ExpMovAvg(buffer_size)
 rms = rootmeansquare.RootMeanSquare()
 cbuffer = circbuffer.CircBuffer(buffer_size)
 sendEverySmpl = math.ceil(inlet_sampleRate / outlet_sendRate)

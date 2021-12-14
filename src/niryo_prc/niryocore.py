@@ -1,6 +1,4 @@
 from niryo_one_tcp_client import *
-from src.oBCI_processing.oBCI_prc_class import Processing
-import time
 import math
 
 
@@ -18,7 +16,7 @@ import math
 #  'p': Sets the robot to learning mode
 
 
-class Niryo:
+class NiryoCore:
 
     def __init__(self):
         self.time_diff_cha1 = 0
@@ -86,15 +84,15 @@ class Niryo:
         if self.time_diff_cha1:  # moves the robot in the positive y-axis
             print("left")
 
-            print(Niryo.rom_calc(pos_list))
-            status, data = self.niryo_one_client.shift_pose(RobotAxis.Y, Niryo.rom_calc(pos_list))
+            print(NiryoCore.rom_calc(pos_list))
+            status, data = self.niryo_one_client.shift_pose(RobotAxis.Y, NiryoCore.rom_calc(pos_list))
             if status is False:
                 print("Error: " + data)
 
         if self.time_diff_cha2:  # moves the robot in the negative y-axis
             print("right")
 
-            print(Niryo.rom_calc(pos_list))
-            status, data = self.niryo_one_client.shift_pose(RobotAxis.Y, Niryo.rom_calc(pos_list))
+            print(NiryoCore.rom_calc(pos_list))
+            status, data = self.niryo_one_client.shift_pose(RobotAxis.Y, NiryoCore.rom_calc(pos_list))
             if status is False:
                 print("Error: " + data)

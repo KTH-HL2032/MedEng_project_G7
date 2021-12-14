@@ -1,9 +1,8 @@
-from src.oBCI_processing.oBCI_prc_class import Processing
-from src.oBCI_processing.circbuffer import *
+from src.oBCI_prc.obcicore import ObciCore
 import time
 
 start = True
-P = Processing()
+P = ObciCore()
 p = P.processing()
 
 while start == True:

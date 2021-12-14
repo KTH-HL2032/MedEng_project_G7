@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class ExponentialMovingAverage:
+class ExpMovAvg:
 
     def __init__(self, size_max):
         self.w = [0]*size_max

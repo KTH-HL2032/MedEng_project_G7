@@ -1,5 +1,4 @@
 import math
-import sys
 import time
 
 from matplotlib import pyplot as plt
@@ -7,12 +6,12 @@ import matplotlib.gridspec as gridspec
 import numpy as np
 from pylsl import StreamInlet, resolve_stream
 
-import src.oBCI_processing.circbuffer as circbuffer
-import src.oBCI_processing.rootmeansquare as rootmeansquare
-import src.oBCI_processing.exp_mov_avg as exp_mov_avg
+import src.oBCI_prc.circbuffer as circbuffer
+import src.oBCI_prc.rootmeansquare as rootmeansquare
+import src.oBCI_prc.expmovavg as expmovavg
 
 
-class Processing:
+class ObciCore:
 
     def __init__(self):
         self.verbose = False
@@ -69,7 +68,7 @@ class Processing:
         #if self.verbose:
             #print("Reported sample rate: %i , number of channels: %i" % (self.inlet_sample_rate, self.inlet_num_channels))
 
-        ema = exp_mov_avg.ExponentialMovingAverage(self.buffer_size)
+        ema = expmovavg.ExpMovAvg(self.buffer_size)
         rms = rootmeansquare.RootMeanSquare()
         cbuffer = circbuffer.CircBuffer(self.buffer_size)
         send_every_smpl = math.ceil(self.inlet_sample_rate / self.outlet_sendRate)
@@ -216,5 +215,5 @@ class Processing:
 
 
 # channel = int(input("Which channel? "))
-P = Processing()
+P = ObciCore()
 P.processing()
