@@ -6,9 +6,9 @@ import matplotlib.gridspec as gridspec
 import numpy as np
 from pylsl import StreamInlet, resolve_stream
 
-import src.oBCI_prc.circbuffer as circbuffer
-import src.oBCI_prc.rootmeansquare as rootmeansquare
-import src.oBCI_prc.expmovavg as expmovavg
+from src.oBCI_prc.circbuffer import CircBuffer
+from src.oBCI_prc.rootmeansquare import RootMeanSquare
+from src.oBCI_prc.expmovavg import ExpMovAvg
 
 
 class ObciCore:
@@ -68,9 +68,9 @@ class ObciCore:
         #if self.verbose:
             #print("Reported sample rate: %i , number of channels: %i" % (self.inlet_sample_rate, self.inlet_num_channels))
 
-        ema = expmovavg.ExpMovAvg(self.buffer_size)
-        rms = rootmeansquare.RootMeanSquare()
-        cbuffer = circbuffer.CircBuffer(self.buffer_size)
+        ema = ExpMovAvg(self.buffer_size)
+        rms = RootMeanSquare()
+        cbuffer = CircBuffer(self.buffer_size)
         send_every_smpl = math.ceil(self.inlet_sample_rate / self.outlet_sendRate)
 
         samples_in_buffer = 0
