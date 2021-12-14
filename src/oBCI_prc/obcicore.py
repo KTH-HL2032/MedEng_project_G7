@@ -2,7 +2,7 @@ import math
 import time
 
 from matplotlib import pyplot as plt
-import matplotlib.gridspec as gridspec
+from matplotlib import gridspec
 import numpy as np
 from pylsl import StreamInlet, resolve_stream
 
