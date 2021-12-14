@@ -29,12 +29,13 @@ class Niryo:
         self.activation_cha3 = False
         self.time_taken = 0
         self.channel = 0
-        #self.niryo_one_client = NiryoOneClient()
+        self.niryo_one_client = NiryoOneClient()
 
         initial_pose = None
 
     def niryo_connect(self):
         print("Hallo")
+        self.niryo_one_client.connect("10.10.10.10")  # WLAN: 10.10.10.10; LAN: 169.254.200.200
 
     def rom_calc(self, pos_list):
 
@@ -76,7 +77,6 @@ class Niryo:
                 changing_index]  # computes new max shift that is still allowed to keep
             # the arm in below outer radius
         return shift
-
 
     def niryo_processing(self):
 
