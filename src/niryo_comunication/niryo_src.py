@@ -5,11 +5,7 @@ import math
 from pynput import keyboard
 
 
-niryo_one_client = NiryoOneClient()
-niryo_one_client.connect("10.10.10.10")  # WLAN: 10.10.10.10; LAN: 169.254.200.200
 
-
-initial_pose = None
 
 
 #  KEYS FOR MOVING
@@ -37,6 +33,13 @@ class Niryo:
         self.activation_cha3 = False
         self.time_taken = 0
         self.channel = 0
+        self.niryo_one_client = NiryoOneClient()
+        self.niryo_one_client.connect("10.10.10.10")  # WLAN: 10.10.10.10; LAN: 169.254.200.200
+
+        initial_pose = None
+
+    def niryo_connect(self):
+        self.niryo_one_client.connect("10.10.10.10")
 
     def rom_calc(self, pos_list):
 
@@ -79,7 +82,7 @@ class Niryo:
 
     def on_key_release(self,key):  # Everything happens when the button is released so it knows how long the button was pressed
 
-        status_pos, data_pos = niryo_one_client.get_pose()
+        status_pos, data_pos = self.niryo_one_client.get_pose()
         pos_list = PoseObject.to_list(data_pos)
 
         if status_pos is True:
@@ -88,12 +91,12 @@ class Niryo:
             exit()
 
         if key.char == 'c':
-            status, data = niryo_one_client.calibrate(CalibrateMode.AUTO)
+            status, data = self.niryo_one_client.calibrate(CalibrateMode.AUTO)
             if status is False:
                 print("Error: " + data)
 
         if key.char == 'l':  # Gets current position as array [x,y,z,roll,pitch,yaw] // char is necessary to work
-            status, data = niryo_one_client.get_pose()
+            status, data = self.niryo_one_client.get_pose()
             if status is True:
                 print(PoseObject.to_list(data))
             else:
@@ -102,7 +105,7 @@ class Niryo:
         if key.char == 'p':  # the robot goes into learning mode (otherwise the robot stays on and is loud)
 
             print("stop")
-            status, data = niryo_one_client.set_learning_mode(True)
+            status, data = self.niryo_one_client.set_learning_mode(True)
 
             if status is False:
                 print("Error: " + data)
@@ -110,14 +113,14 @@ class Niryo:
 
     def niryo_processing(self):
 
-        status_pos, data_pos = niryo_one_client.get_pose()
+        status_pos, data_pos = self.niryo_one_client.get_pose()
         pos_list = PoseObject.to_list(data_pos)
 
         if self.time_diff_cha1:  # moves the robot in the positive y-axis
             print("left")
 
             print(Niryo.rom_calc(pos_list))
-            status, data = niryo_one_client.shift_pose(RobotAxis.Y, Niryo.rom_calc(pos_list))
+            status, data = self.niryo_one_client.shift_pose(RobotAxis.Y, Niryo.rom_calc(pos_list))
             if status is False:
                 print("Error: " + data)
 
@@ -125,7 +128,7 @@ class Niryo:
             print("right")
 
             print(Niryo.rom_calc(pos_list))
-            status, data = niryo_one_client.shift_pose(RobotAxis.Y, Niryo.rom_calc(pos_list))
+            status, data = self.niryo_one_client.shift_pose(RobotAxis.Y, Niryo.rom_calc(pos_list))
             if status is False:
                 print("Error: " + data)
 
