@@ -5,12 +5,12 @@ import math
 from pynput import keyboard
 
 
-
 niryo_one_client = NiryoOneClient()
 niryo_one_client.connect("10.10.10.10")  # WLAN: 10.10.10.10; LAN: 169.254.200.200
 
 
 initial_pose = None
+
 
 #  KEYS FOR MOVING
 #  'w': End effector moves in the direction of positive x-axis
@@ -28,13 +28,13 @@ initial_pose = None
 
 class Niryo:
 
-    def __init__(self, b, c, d, e, f, g):
-        self.time_diff_cha1 = b
-        self.time_diff_cha2 = c
-        self.time_diff_cha3 = d
-        self.activation_cha1 = e
-        self.activation_cha2 = f
-        self.activation_cha3 = g
+    def __init__(self):
+        self.time_diff_cha1 = 0
+        self.time_diff_cha2 = 0
+        self.time_diff_cha3 = 0
+        self.activation_cha1 = False
+        self.activation_cha2 = False
+        self.activation_cha3 = False
         self.time_taken = 0
         self.channel = 0
 
