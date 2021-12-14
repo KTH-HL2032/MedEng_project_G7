@@ -34,12 +34,11 @@ class Niryo:
         self.time_taken = 0
         self.channel = 0
         self.niryo_one_client = NiryoOneClient()
-        self.niryo_one_client.connect("10.10.10.10")  # WLAN: 10.10.10.10; LAN: 169.254.200.200
 
         initial_pose = None
 
     def niryo_connect(self):
-        self.niryo_one_client.connect("10.10.10.10")
+        print("Hallo")
 
     def rom_calc(self, pos_list):
 

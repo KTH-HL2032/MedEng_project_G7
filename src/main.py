@@ -1,9 +1,9 @@
-from src.niryo_comunication.niryo_src import *
-
-def main():
-   n = Niryo
-   n.niryo_connect()
+from src.niryo_comunication.niryo_src import Niryo
 
 
-if __name__ == '__main__':
-    main()
+N = Niryo()
+N.niryo_connect()
+
+
+
+
