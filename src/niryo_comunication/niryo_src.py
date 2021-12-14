@@ -2,7 +2,6 @@ from niryo_one_tcp_client import *
 from src.oBCI_processing.oBCI_prc_class import Processing
 import time
 import math
-from pynput import keyboard
 
 
 #  KEYS FOR MOVING
@@ -30,7 +29,7 @@ class Niryo:
         self.activation_cha3 = False
         self.time_taken = 0
         self.channel = 0
-        self.niryo_one_client = NiryoOneClient()
+        #self.niryo_one_client = NiryoOneClient()
 
         initial_pose = None
 
@@ -78,37 +77,6 @@ class Niryo:
             # the arm in below outer radius
         return shift
 
-    def on_key_release(self,
-                       key):  # Everything happens when the button is released so it knows how long the button was pressed
-
-        status_pos, data_pos = self.niryo_one_client.get_pose()
-        pos_list = PoseObject.to_list(data_pos)
-
-        if status_pos is True:
-            print(PoseObject.to_list(data_pos))
-        else:
-            exit()
-
-        if key.char == 'c':
-            status, data = self.niryo_one_client.calibrate(CalibrateMode.AUTO)
-            if status is False:
-                print("Error: " + data)
-
-        if key.char == 'l':  # Gets current position as array [x,y,z,roll,pitch,yaw] // char is necessary to work
-            status, data = self.niryo_one_client.get_pose()
-            if status is True:
-                print(PoseObject.to_list(data))
-            else:
-                print("Error: " + data)
-
-        if key.char == 'p':  # the robot goes into learning mode (otherwise the robot stays on and is loud)
-
-            print("stop")
-            status, data = self.niryo_one_client.set_learning_mode(True)
-
-            if status is False:
-                print("Error: " + data)
-        return False  # only one input at a time is allowed
 
     def niryo_processing(self):
 
@@ -130,8 +98,3 @@ class Niryo:
             status, data = self.niryo_one_client.shift_pose(RobotAxis.Y, Niryo.rom_calc(pos_list))
             if status is False:
                 print("Error: " + data)
-
-
-while True:
-    with keyboard.Listener(on_release=Niryo.on_key_release) as release_listener:
-        release_listener.join()
