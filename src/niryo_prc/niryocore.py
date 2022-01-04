@@ -37,6 +37,16 @@ class NiryoCore:
         print("Hallo")
         self.niryo_one_client.connect("10.10.10.10")  # WLAN: 10.10.10.10; LAN: 169.254.200.200
 
+        status, data = self.niryo_one_client.calibrate(CalibrateMode.AUTO)
+        if status is False:
+            print("Error: " + data)
+
+        status, data = self.niryo_one_client.move_joints(0.0, -0.73, -0.787, 0.0, 0.0, 0.0)
+        if status is False:
+            print("Error: " + data)
+
+
+
     def rom_calc(self, pos_list, time_diff, channel):
 
         in_rad = 0.16
