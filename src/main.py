@@ -12,10 +12,9 @@ def run():
     p = obcicore_instance.processing()
 
     while True:
-        time_diff_ch2, time_diff_ch3, activation_ch2, activation_ch3, loop_time, muscle_activated_2, muscle_activated_3 = next(p)
+        time_diff_ch2, time_diff_ch3, muscle_activated_2, muscle_activated_3, loop_time = next(p)
         time.sleep(loop_time)
         if verbose:
-            # print("Channel 1\n", "time diff", time_diff_ch1, "activated", activation_ch1)
             print("Channel 2\n", "time diff", time_diff_ch2, "Muscle activated", muscle_activated_2)
             print("Channel 3\n", "time diff", time_diff_ch3, "Msucle activated", muscle_activated_3)
 

@@ -1,21 +1,6 @@
 from niryo_one_tcp_client import *
 import math
 
-
-#  KEYS FOR MOVING
-#  'w': End effector moves in the direction of positive x-axis
-#  's': End effector moves in the direction of negative x-axis
-#  'a': End effector moves in the direction of positive y-axis
-#  'd': End effector moves in the direction of negative y-axis
-#  'n': End effector moves in the direction of positive z-axis
-#  'm': End effector moves in the direction of negative z-axis
-
-#  SPECIAL KEYS
-#  'c': Calibrates the robot
-#  'l': Gives end effector position [x,y,z,roll,pitch,yaw]
-#  'p': Sets the robot to learning mode
-
-
 class NiryoCore:
 
     def __init__(self):
@@ -29,25 +14,22 @@ class NiryoCore:
         self.channel = 0
         self.niryo_one_client = NiryoOneClient()
 
-        initial_pose = None
-
         self.verbose = True
 
     def connect(self):
-        print("Hallo")
+        print("Start")
         self.niryo_one_client.connect("10.10.10.10")  # WLAN: 10.10.10.10; LAN: 169.254.200.200
 
         status, data = self.niryo_one_client.calibrate(CalibrateMode.AUTO)
         if status is False:
             print("Error: " + data)
 
-        status, data = self.niryo_one_client.move_joints(0.0, -0.73, -0.787, 0.0, 0.0, 0.0)
+        status, data = self.niryo_one_client.move_joints(0.0, -0.73, -0.787, 0.0, 0.0, 0.0) #Starting point of the robot
         if status is False:
             print("Error: " + data)
 
-
-
-    def rom_calc(self, pos_list, time_diff, channel):
+    def rom_calc(self, pos_list, time_diff, channel):  # Calculates the shift and checks if the end position of the end
+        # effector is still in the allowed area
 
         in_rad = 0.16
         o_rad = 0.3
