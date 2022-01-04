@@ -195,7 +195,7 @@ class ObciCore:
                 #TODO: replace loop time with a flag (attribute) and methods to set the atribute
                 loop_time = end_time_loop - start_time_loop
 
-                yield self.time_diff_1, self.time_diff_2, self.time_diff_3, self.robot_activated_1, self.robot_activated_2, self.robot_activated_3, loop_time, self.muscle_activated_3
+                yield self.time_diff_2, self.time_diff_3, self.robot_activated_2, self.robot_activated_3, loop_time, self.muscle_activated_2, self.muscle_activated_3
 
                 self.time_diff_3 = 0
                 self.time_diff_2 = 0
