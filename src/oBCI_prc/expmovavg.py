@@ -24,7 +24,7 @@ class ExpMovAvg:
                 self.w[i] = beta*self.w[i-1] + (1-beta)*interval[i]
 
         avg_w = sum(self.w)/len(self.w)
-        if avg_w > 300:
+        if avg_w > 150:
             self.activated = True
 
         else:

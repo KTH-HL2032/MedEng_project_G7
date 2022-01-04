@@ -96,7 +96,7 @@ class NiryoCore:
             ch = 2
             if self.verbose:
                 print("right")
-                print(self.rom_calc(pos_list, time_diff_ch3, ch))
+                print(self.rom_calc(pos_list, time_diff_ch2, ch))
             status, data = self.niryo_one_client.shift_pose(RobotAxis.Y, self.rom_calc(pos_list, time_diff_ch2, ch))
             if status is False:
                 print("Error: " + data)
