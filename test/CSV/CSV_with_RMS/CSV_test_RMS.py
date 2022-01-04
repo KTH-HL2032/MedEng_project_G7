@@ -52,7 +52,7 @@ while True:
         if timestamp:
             for sample in chunk:
                 raw_pulse_signal.append(sample[2])
-                rms__ = (rms(raw_pulse_signal, 50))
+                print(rms(raw_pulse_signal, 128))
 
 
                 with open('data.csv', 'a') as csv_file:
@@ -67,7 +67,7 @@ while True:
                     print(x_value, total_1)
 
                     x_value += 1
-                    total_1 = rms__[-1] # <---- sample values from EMG-signal have to come here
+                    total_1 = 1 # <---- sample values from EMG-signal have to come here
 
 
                     time.sleep(0.005)
