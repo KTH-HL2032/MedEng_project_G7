@@ -11,7 +11,7 @@ import numpy
 import math
 
 
-duration = int(input("How long? "))
+#duration = int(input("How long? "))
 
 # first resolve an EEG stream on the lab network
 print("looking for an EMG stream...")
@@ -28,15 +28,15 @@ def testLSLPulseData():
     start = time.time()
 
     raw_pulse_signal = []
-    while time.time() <= start + duration:
+    while time.time() <= start + 10:
         chunk, timestamp = inlet.pull_chunk()
         if timestamp:
             for sample in chunk:
-                print(sample[2])
+                #print(sample[2])
                 raw_pulse_signal.append(sample[2])
 
-    print("Avg Sampling Rate == {}".format(len(raw_pulse_signal) / duration))
-    print(raw_pulse_signal)
+    print("Avg Sampling Rate == {}".format(len(raw_pulse_signal) / 10))
+    #print(raw_pulse_signal)
 
 
     def rms(interval, halfwindow):
@@ -53,15 +53,18 @@ def testLSLPulseData():
 
         return rms_signal
 
-    print(rms(raw_pulse_signal, 2))
+    list_rms = (rms(raw_pulse_signal, 128))
+    print(list_rms)
+    for x in range(len(list_rms)):
+        print (list_rms[x])
 
     threshold = 150
 
     # plt.plot(listdata)
-    plt.plot(rms(raw_pulse_signal, 80))
+    plt.plot(rms(raw_pulse_signal, 128))
     #plt.plot(threshold)
 
-    plt.plot(raw_pulse_signal)
+    #plt.plot(raw_pulse_signal)
     plt.ylabel('raw analog signal')
     plt.show()
 
