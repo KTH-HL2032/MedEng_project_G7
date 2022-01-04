@@ -19,7 +19,7 @@ def run():
             # print("Channel 2\n", "time diff", time_diff_ch2, "activated", activation_ch2)
             print("Channel 3\n", "time diff", time_diff_ch3, "Msucle activated", muscle_activated_3, "Robot activated",activation_ch3)
 
-        niryocore_instance.processing(time_diff_ch3)
+        niryocore_instance.processing(time_diff_ch2, time_diff_ch3)
 
 
 if __name__ == '__main__':
