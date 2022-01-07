@@ -7,14 +7,6 @@ class ExpMovAvg:
         self.w = [0]*size_max
         self.activated = False
 
-    def get_old(self, interval, window):
-        weights = np.exp(np.e(-1., 0., window))
-        weights /= weights.sum()
-
-        a = np.convolve(interval, weights)[:len(interval)]
-        a[:window] = a[window]
-        return a
-
     def get(self, interval, alpha, beta):
 
         for i in range(1, len(interval)):
