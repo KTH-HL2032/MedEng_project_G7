@@ -16,11 +16,10 @@ Installation process for windows:
 4) install the niryo one package as follows `pip install -e ./dependencies/niryo_one_tcp_client_package`
 
 ## Niryo One
-The Niryo One Robot can be operated via different communication channels.
-The easiest way to get stared is to [download][3] the desktop application.
-Here you can connect to the robot and get a qucik overview of the features.
+The Niryo One Robot can be operated via different communication channels. The easiest way to get stared is to [download][3] the desktop application. Here you can connect to the robot and get a qucik overview of the features.
 
 To communicate with the robot a more sophisticated method is needed. The 
+![alt text](https://camo.githubusercontent.com/755f38dd9cdfd93c6269ca5ba19bff6b5580a4287d55c84f571844d8eeae9572/68747470733a2f2f6e6972796f2e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031372f31322f6e6972796f5f6f6e655f726f732e706e67)
 
 [1]:	https://youtu.be/Kg1Yvry_Ydk
 [2]:	https://youtu.be/APOPm01BVrk
