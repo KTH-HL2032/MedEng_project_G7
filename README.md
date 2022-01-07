@@ -46,7 +46,16 @@ The OpenBCI GUI communicates with the python code via lab streaming layer (LSL).
 
 ## Structure of the Code
 
+The code is structured in three main folders:
+1) dependencies
+2) src (source code)
+3) test
 
+The dependencies include the Niryo one packages that you built with pip in the beginning. The src folder is where the running code is located. The Test folder is a collection of all previous code that was used to test features. It is sub structured but no longer relevant for this project.
+
+In the scr folder the main.py is the most important file. Simply execute the run and the program works (when the Niryo and the OpenBCI and connected). Furthermore the folder is structured in code related to the OpenBCI (oBCI_prc) and the code needed for the processing of the data and communication with the Niryo (niryo_prc).
+
+The data is fetched from the LSL stream that is provided by the oBCI GUI and put into a circular buffer. From there the processing begins. An RMS and exponential moving average in combination with a threshold are used to detect a muscle activation. Depending on the duration of the activation of the muscle the Niryo robot is moved in the corresponding direction.
 
 
 [1]:	https://youtu.be/Kg1Yvry_Ydk
