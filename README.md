@@ -12,9 +12,16 @@ Installation process for unix:
 Installation process for windows:
 1) clone repository to a local path
 2) create a venv if desired (recommended)
-3) I haven't wrote a batch skript for windwos yet but it will follow. You can always install the packages manually if you know how it works.
+3) install all the packages from the requirements.txt `pip install -r requirements.txt`
+4) install the niryo one package as follows `pip install -e ./dependencies/niryo_one_tcp_client_package`
 
 ## Niryo One
+The Niryo One Robot can be operated via different communication channels.
+The easiest way to get stared is to [download][3] the desktop application.
+Here you can connect to the robot and get a qucik overview of the features.
+
+To communicate with the robot a more sophisticated method is needed. The 
 
 [1]:	https://youtu.be/Kg1Yvry_Ydk
 [2]:	https://youtu.be/APOPm01BVrk
+[3]:	https://niryo.com/download/
