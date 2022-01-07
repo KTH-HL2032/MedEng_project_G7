@@ -41,7 +41,7 @@ The OpenBCI GUI communicates with the python code via lab streaming layer (LSL).
 1) Go to the networking panel and select "LSL" in the dropdown menu
 2) Select the "time series" data as the data to be streamed
 3) change the name of the stream to "EMG"
-4) turn on the filters that are applied (notch 50Hz, broadband 5-20kHz)
+4) turn on the filters that are applied (Notch 50Hz, Bandpass 5-50kHz; make sure to select these in the top of the GUI as well)
 5) start the stream as well as the transmission of the data from the ganglion
 
 ## Structure of the Code
