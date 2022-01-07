@@ -1,6 +1,6 @@
 class CircBuffer:
 
-    def __init__(self,size_max):
+    def __init__(self, size_max):
         self.max = size_max
         self.data = []
         self.full = False
@@ -8,19 +8,14 @@ class CircBuffer:
     class __Full:
         """ class that implements a full buffer """
         def append(self, x):
-            """ Append an element overwriting the oldest one. """
             self.data[self.cur] = x
-            # if self.cur == 255:
-            #     self.cur = 0
-            # else:
-            #     self.cur += 1
             self.cur = int((self.cur+1) % self.max)
+
         def get(self):
-            """ return list of elements in correct order """
             return self.data[self.cur:]+self.data[:self.cur]
 
     def append(self,x):
-        """append an element at the end of the buffer"""
+        """ append an element at the end of the buffer """
         self.data.append(x)
         if len(self.data) == self.max:
             self.cur = 0
