@@ -1,6 +1,7 @@
 from niryo_one_tcp_client import *
 import math
 
+
 class NiryoCore:
 
     def __init__(self):
