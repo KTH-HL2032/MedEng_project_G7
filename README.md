@@ -1,6 +1,10 @@
 # MedEng_project_G7
 This project is a result of the project course in medical engineering at KTH.
 
+This [video][9] shows how the robot is controlled by an EMG signal. \
+The [final short paper][10] gives a detailed overview of the project work.
+
+
 You need to install all the packages from the requirements.txt as well as the ones in the dependencies folder. This can be done manually or with the bash or batch skrips install_packages_... A venv is recommended. If this is a new concept to you watch the video by Corey Shaefer for [unix][1] or [windows][2] respectively. What IDE you use is up to you, we wored with PyCharm.
 
 Installation process for unix:
@@ -22,7 +26,7 @@ To communicate with the robot a more sophisticated method is needed. The Niryo p
 
 An overview of the levels of abstraction can be found on the [github page][5] of the Niryo One ROS stack
 
-![alt text](https://camo.githubusercontent.com/755f38dd9cdfd93c6269ca5ba19bff6b5580a4287d55c84f571844d8eeae9572/68747470733a2f2f6e6972796f2e636f6d2f77702d636f6e74656e742f75706c6f6164732f323031372f31322f6e6972796f5f6f6e655f726f732e706e67)
+![alt text](./documents/ROS.png)
 
 There are three main ways that are relevant to us:
 1) [Modbus][6] via TCP/IP server
@@ -66,3 +70,5 @@ The data is fetched from the LSL stream that is provided by the oBCI GUI and put
 [6]:    https://github.com/NiryoRobotics/niryo_one_ros/tree/master/niryo_one_modbus
 [7]:    http://wiki.ros.org/rosbridge_suite
 [8]:    https://openbci.com/downloads
+[9]:    ./documents/IMG_1879.MOV
+[10]:   ./documents/Medical_Engineering_Project_Paper.pdf
